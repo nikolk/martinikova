@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nikol Martiníková</title>
+  <meta name="description" content="Nikol Martiníková — pomáhám týmům fungovat lépe a efektivněji." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset & Base ─────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:    #fdf5f0;
+      --ink:      #1e0d10;
+      --ember:    #660033;
+      --grove:    #daa520;
+      --sun:      #2e6f40;
+      --ink-soft: #f5e8e4;
+      --font-display: 'Bricolage Grotesque', sans-serif;
+      --font-body:    'DM Sans', sans-serif;
+      --max-w: 1080px;
+      --section-gap: clamp(5rem, 10vw, 8rem);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.65;
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ── Nav ──────────────────────────────────────────── */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+
+    #nav.scrolled {
+      background: rgba(248, 244, 238, 0.95);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 1px 0 rgba(24,21,17,0.08);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .nav-logo span { color: var(--ember); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--ink);
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active { opacity: 1; }
+
+    .nav-links a.active { color: var(--ember); }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--ink);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    /* ── Hero ─────────────────────────────────────────── */
+    #uvod {
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-blob {
+      position: absolute;
+      top: -10%;
+      right: -15%;
+      width: clamp(300px, 55vw, 700px);
+      aspect-ratio: 1;
+      background: radial-gradient(ellipse at 40% 40%, var(--sun) 0%, var(--ember) 55%, transparent 70%);
+      opacity: 0.12;
+      border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+      filter: blur(40px);
+      pointer-events: none;
+    }
+
+    .hero-blob-2 {
+      position: absolute;
+      bottom: -5%;
+      left: -10%;
+      width: clamp(200px, 35vw, 450px);
+      aspect-ratio: 1;
+      background: radial-gradient(ellipse, var(--sun) 0%, transparent 70%);
+      opacity: 0.1;
+      border-radius: 40% 60% 45% 55%;
+      filter: blur(50px);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+    }
+
+    .hero-name {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(3rem, 9vw, 7rem);
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-tagline {
+      font-size: clamp(1.05rem, 2.2vw, 1.2rem);
+      font-weight: 400;
+      max-width: 560px;
+      color: rgba(24,21,17,0.65);
+      margin-bottom: 1rem;
+      line-height: 1.65;
+    }
+
+    .hero-tagline--accent {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .hero-tagline:last-of-type { margin-bottom: 2.5rem; }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      background: var(--ember);
+      color: #fff;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 500;
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.15);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(102,0,51,0.4); }
+    .btn-primary:hover::after { opacity: 1; }
+
+    /* ── About ────────────────────────────────────────── */
+    #o-mne {
+      background: var(--ink);
+      color: var(--ink-soft);
+      padding: var(--section-gap) 2rem;
+    }
+
+    .about-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .section-label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ember);
+      margin-bottom: 1rem;
+    }
+
+    .about-text h2 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+      color: #fff;
+    }
+
+    .about-text p {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: rgba(240,235,227,0.75);
+      margin-bottom: 1rem;
+    }
+
+    .about-text p.about-accent {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+      color: var(--grove);
+      margin-bottom: 1rem;
+    }
+
+    .about-tags-col { display: flex; flex-direction: column; gap: 2rem; }
+
+    .tags-group-label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(240,235,227,0.4);
+      margin-bottom: 0.75rem;
+    }
+
+    .tags-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 0.35rem 0.85rem;
+      border-radius: 100px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .tag-past {
+      background: rgba(240,235,227,0.07);
+      color: rgba(240,235,227,0.65);
+      border: 1px solid rgba(240,235,227,0.12);
+    }
+
+    .tag-now {
+      background: rgba(218,165,32,0.15);
+      color: #c8991a;
+      border: 1px solid rgba(218,165,32,0.35);
+    }
+
+    /* ── Services ─────────────────────────────────────── */
+    #nabidka {
+      padding: var(--section-gap) 2rem;
+      background: var(--cream);
+    }
+
+    .services-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+
+    .services-header {
+      margin-bottom: 3.5rem;
+    }
+
+    .services-header h2 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      color: var(--ink);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: #fff;
+      border: 1px solid rgba(24,21,17,0.08);
+      border-radius: 12px;
+      padding: 2.25rem;
+      transition: transform 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--ember);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(24,21,17,0.1); }
+    .card:hover::before { transform: scaleX(1); }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: rgba(218,165,32,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      font-size: 1.4rem;
+    }
+
+    .card:nth-child(2) .card-icon { background: rgba(232,84,58,0.08); }
+
+    .card h3 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.3rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+      color: var(--ink);
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: rgba(24,21,17,0.6);
+    }
+
+    .card-detail {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .card-detail-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.88rem;
+      color: rgba(24,21,17,0.55);
+    }
+
+    .card-detail-item::before {
+      content: '→';
+      color: var(--grove);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 0.05em;
+    }
+
+    /* ── Contact ──────────────────────────────────────── */
+    #kontakt {
+      background: var(--ink);
+      color: var(--ink-soft);
+      padding: var(--section-gap) 2rem;
+      text-align: center;
+    }
+
+    .contact-inner {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    #kontakt .section-label { justify-content: center; display: inline-block; margin-bottom: 1rem; }
+
+    #kontakt h2 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.8rem, 5vw, 3.2rem);
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+
+    #kontakt p {
+      font-size: 1rem;
+      color: rgba(240,235,227,0.6);
+      margin-bottom: 3rem;
+      line-height: 1.6;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 1rem 1.75rem;
+      border: 1px solid rgba(240,235,227,0.12);
+      border-radius: 8px;
+      background: rgba(240,235,227,0.04);
+      color: var(--ink-soft);
+      font-size: 0.95rem;
+      font-weight: 500;
+      width: 100%;
+      max-width: 360px;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+
+    .contact-link:hover {
+      border-color: var(--ember);
+      background: rgba(232,84,58,0.08);
+      transform: translateY(-2px);
+    }
+
+    .contact-link svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      color: var(--ember);
+    }
+
+    /* ── Footer ───────────────────────────────────────── */
+    footer {
+      background: var(--ink);
+      border-top: 1px solid rgba(240,235,227,0.07);
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 0.8rem;
+      color: rgba(240,235,227,0.3);
+    }
+
+    /* ── Scroll animations ────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ── Responsive ───────────────────────────────────── */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0; right: 0;
+        background: rgba(248,244,238,0.98);
+        backdrop-filter: blur(10px);
+        flex-direction: column;
+        gap: 0;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(24,21,17,0.08);
+      }
+
+      .nav-links.open { display: flex; }
+
+      .nav-links li { width: 100%; }
+
+      .nav-links a {
+        display: block;
+        padding: 0.85rem 2rem;
+        opacity: 0.75;
+      }
+
+      .nav-toggle { display: flex; }
+
+      #uvod { padding: 7rem 1.5rem 3rem; }
+
+      .about-inner {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      #nabidka, #o-mne, #kontakt { padding: 4rem 1.5rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-name { font-size: clamp(2.5rem, 13vw, 3.5rem); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Nav ──────────────────────────────────────────── -->
+  <header>
+    <nav id="nav" role="navigation" aria-label="Hlavní navigace">
+      <a href="#uvod" class="nav-logo">N<span>M</span></a>
+      <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false" aria-controls="nav-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links" id="nav-menu">
+        <li><a href="#uvod">Úvod</a></li>
+        <li><a href="#o-mne">O mně</a></li>
+        <li><a href="#nabidka">Nabídka</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ── Hero ─────────────────────────────────────────── -->
+    <section id="uvod" aria-label="Úvod">
+      <div class="hero-blob" aria-hidden="true"></div>
+      <div class="hero-blob-2" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <h1 class="hero-name reveal">Nikol<br>Martiníková</h1>
+        <p class="hero-tagline reveal reveal-delay-1">
+          Pomáhám jednotlivcům a malým týmům pracovat chytřeji – navrhuji funkční řešení, odstraňuji tření v procesech a propojuji lidi s technologiemi.
+        </p>
+        <a href="#kontakt" class="btn-primary reveal reveal-delay-3">Pojďme se bavit</a>
+      </div>
+    </section>
+
+    <!-- ── O mně ─────────────────────────────────────────── -->
+    <section id="o-mne" aria-label="O mně">
+      <div class="about-inner">
+        <div class="about-text reveal">
+          <p class="section-label">O mně</p>
+          <h2>Nejsem specialistka.</h2>
+          <p class="about-accent">Jsem multipotenciálka.</p>
+          <p>
+            Moje cesta vedla přes obsahový marketing a datovou analytiku až po organizaci eventů a lektorování digi dovedností. Aktuálně se zaměřuji na AI a vibe coding. Má přirozená potřeba se neustále vzdělávat mi dává schopnost vidět širší kontext tam, kde ostatní vidí jen svůj kousek práce.
+          </p>
+          <p class="about-accent">Jsem „multiplier“.</p>
+          <p>
+            To znamená, že do vašeho týmu nepřináším jen odpracované hodiny, ale schopnost zvednout laťku všem ostatním. Dokážu se domluvit s každým, rychle se zorientovat a být oporou celého týmu.
+          </p>
+        </div>
+        <div class="about-tags-col reveal reveal-delay-1">
+          <div>
+            <p class="tags-group-label">Za mnou</p>
+            <div class="tags-group">
+              <span class="tag tag-past">Koordinace projektů</span>
+              <span class="tag tag-past">Procesní nastavení</span>
+              <span class="tag tag-past">Marketing</span>
+              <span class="tag tag-past">Datová analytika</span>
+              <span class="tag tag-past">Administrativní agenda</span>
+              <span class="tag tag-past">Komunikace s klienty</span>
+              <span class="tag tag-past">Lektorování</span>
+            </div>
+          </div>
+          <div>
+            <p class="tags-group-label">Teď mě zajímá</p>
+            <div class="tags-group">
+              <span class="tag tag-now">Operations</span>
+              <span class="tag tag-now">Škálování malých týmů</span>
+              <span class="tag tag-now">Efektivní práce s AI</span>
+              <span class="tag tag-now">Projekty s dopadem</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Nabídka ───────────────────────────────────────── -->
+    <section id="nabidka" aria-label="Nabídka">
+      <div class="services-inner">
+        <div class="services-header reveal">
+          <p class="section-label">Co nabízím</p>
+          <h2>Přijdu, zorientuji se<br>a pustím se do práce.</h2>
+        </div>
+        <div class="cards">
+          <article class="card reveal reveal-delay-1">
+            <div class="card-icon" aria-hidden="true">🤖</div>
+            <h3>AI onboarding a procesní optimalizace</h3>
+            <p>
+              Najdu místa, kde vám zbytečně uniká čas, energie nebo trpělivost, a ukážu, jak je vyřešit chytře s pomocí AI.
+            </p>
+            <div class="card-detail">
+              <div class="card-detail-item">Zmapování toho, kde AI skutečně pomůže</div>
+              <div class="card-detail-item">Výběr nástrojů, které dávají smysl právě vám</div>
+              <div class="card-detail-item">Praktické zapracování do vašich stávajících workflow</div>
+              <div class="card-detail-item">Podpora, dokud to nezačne fungovat samo</div>
+            </div>
+          </article>
+          <article class="card reveal reveal-delay-2">
+            <div class="card-icon" aria-hidden="true">🚀</div>
+            <h3>Posila projektu</h3>
+            <p>
+              Naskočím do rozjetého vlaku, přinesu nové nápady a stanu se součástí celého týmu.
+            </p>
+            <div class="card-detail">
+              <div class="card-detail-item">Koordinace projektů a zastřešení toho, na co není prostor</div>
+              <div class="card-detail-item">Čerstvý pohled a nové nápady tam, kde tým uvízl</div>
+              <div class="card-detail-item">Podpora vedení, komunikace a rozhodování</div>
+              <div class="card-detail-item">Krátkodobě i dlouhodobě, na dálku i hybridně</div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Kontakt ───────────────────────────────────────── -->
+    <section id="kontakt" aria-label="Kontakt">
+      <div class="contact-inner">
+        <p class="section-label reveal">Kontakt</p>
+        <h2 class="reveal reveal-delay-1">Ozvěte se.</h2>
+        <p class="reveal reveal-delay-2">Nemusíte mít hned konkrétní zadání — stačí pocit, že něco někde drhne. Společně se podíváme na to, jak vám můžu pomoct.</p>
+        <div class="contact-links">
+          <a href="mailto:martinikova.nikol@gmail.com" class="contact-link reveal reveal-delay-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+            martinikova.nikol@gmail.com
+          </a>
+          <a href="https://www.linkedin.com/in/nikol-martinikova/" target="_blank" rel="noopener noreferrer" class="contact-link reveal reveal-delay-2">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/>
+              <circle cx="4" cy="4" r="2"/>
+            </svg>
+            LinkedIn — Nikol Martiníková
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 Nikol Martiníková</p>
+  </footer>
+
+  <script>
+    // ── Nav: scroll behavior ──────────────────────────────
+    const nav = document.getElementById('nav');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const sections = document.querySelectorAll('section[id]');
+
+    function onScroll() {
+      // Sticky nav style
+      if (window.scrollY > 40) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+
+      // Active nav link
+      let current = '';
+      sections.forEach(section => {
+        const top = section.offsetTop - 100;
+        if (window.scrollY >= top) current = section.id;
+      });
+
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // ── Nav: mobile toggle ────────────────────────────────
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu   = document.getElementById('nav-menu');
+
+    navToggle.addEventListener('click', () => {
+      const open = navMenu.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', open);
+    });
+
+    // Close menu on link click
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // ── Intersection Observer: reveal ─────────────────────
+    const reveals = document.querySelectorAll('.reveal');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+
+    // ── Smooth scroll fallback (for older Safari) ─────────
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
