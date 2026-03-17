@@ -109,42 +109,39 @@
       min-height: 100dvh;
       display: flex;
       align-items: center;
+      justify-content: center;
       padding: 8rem 2rem 4rem;
-      position: relative;
       overflow: hidden;
     }
 
-    .hero-blob {
-      position: absolute;
-      top: -10%;
-      right: -15%;
-      width: clamp(300px, 55vw, 700px);
-      aspect-ratio: 1;
-      background: radial-gradient(ellipse at 40% 40%, var(--sun) 0%, var(--ember) 55%, transparent 70%);
-      opacity: 0.12;
-      border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
-      filter: blur(40px);
-      pointer-events: none;
-    }
-
-    .hero-blob-2 {
-      position: absolute;
-      bottom: -5%;
-      left: -10%;
-      width: clamp(200px, 35vw, 450px);
-      aspect-ratio: 1;
-      background: radial-gradient(ellipse, var(--sun) 0%, transparent 70%);
-      opacity: 0.1;
-      border-radius: 40% 60% 45% 55%;
-      filter: blur(50px);
-      pointer-events: none;
+    .hero-inner {
+      max-width: var(--max-w);
+      width: 100%;
     }
 
     .hero-inner {
       max-width: var(--max-w);
       margin: 0 auto;
       width: 100%;
-      position: relative;
+      display: flex;
+      align-items: center;
+      gap: clamp(2.5rem, 6vw, 5rem);
+    }
+
+    .hero-photo {
+      width: clamp(180px, 22vw, 280px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 3px solid var(--ember);
+    }
+
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
     }
 
     .hero-name {
@@ -521,6 +518,13 @@
 
       #uvod { padding: 7rem 1.5rem 3rem; }
 
+      .hero-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .hero-tagline { margin-left: auto; margin-right: auto; }
+
       .about-inner {
         grid-template-columns: 1fr;
         gap: 2.5rem;
@@ -562,14 +566,17 @@
 
     <!-- ── Hero ─────────────────────────────────────────── -->
     <section id="uvod" aria-label="Úvod">
-      <div class="hero-blob" aria-hidden="true"></div>
-      <div class="hero-blob-2" aria-hidden="true"></div>
       <div class="hero-inner">
-        <h1 class="hero-name reveal">Nikol<br>Martiníková</h1>
-        <p class="hero-tagline reveal reveal-delay-1">
-          Pomáhám jednotlivcům a malým týmům pracovat chytřeji – navrhuji funkční řešení, odstraňuji tření v procesech a propojuji lidi s technologiemi.
-        </p>
-        <a href="#kontakt" class="btn-primary reveal reveal-delay-3">Pojďme se bavit</a>
+        <div class="hero-photo reveal">
+          <img src="nikolm.png" alt="Nikol Martiníková" />
+        </div>
+        <div class="hero-text">
+          <h1 class="hero-name reveal">Nikol<br>Martiníková</h1>
+          <p class="hero-tagline reveal reveal-delay-1">
+            Pomáhám jednotlivcům a malým týmům pracovat chytřeji – navrhuji funkční řešení, odstraňuji tření v procesech a propojuji lidi s technologiemi.
+          </p>
+          <a href="#kontakt" class="btn-primary reveal reveal-delay-3">Pojďme se bavit</a>
+        </div>
       </div>
     </section>
 
