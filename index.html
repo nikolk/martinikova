@@ -349,10 +349,15 @@
       align-items: center;
       justify-content: center;
       margin-bottom: 1.5rem;
-      font-size: 1.4rem;
+      color: var(--grove);
     }
 
-    .card:nth-child(2) .card-icon { background: rgba(232,84,58,0.08); }
+    .card-icon svg { width: 22px; height: 22px; }
+
+    .card:nth-child(2) .card-icon {
+      background: rgba(102,0,51,0.07);
+      color: var(--ember);
+    }
 
     .card h3 {
       font-family: var(--font-display);
@@ -573,9 +578,9 @@
         <div class="hero-text">
           <h1 class="hero-name reveal">Nikol<br>Martiníková</h1>
           <p class="hero-tagline reveal reveal-delay-1">
-            Pomáhám jednotlivcům a malým týmům pracovat chytřeji – navrhuji funkční řešení, odstraňuji tření v procesech a propojuji lidi s technologiemi.
+            Pomáhám týmům a jednotlivcům pracovat chytřeji – navrhuji funkční řešení, odstraňuji tření v procesech a propojuji lidi s technologiemi.
           </p>
-          <a href="#kontakt" class="btn-primary reveal reveal-delay-3">Pojďme se bavit</a>
+          <a href="#kontakt" class="btn-primary reveal reveal-delay-3">Kontaktujte mě</a>
         </div>
       </div>
     </section>
@@ -585,7 +590,7 @@
       <div class="about-inner">
         <div class="about-text reveal">
           <p class="section-label">O mně</p>
-          <h2>Nejsem specialistka.</h2>
+          <h2>Propojuji lidi s technologiemi.</h2>
           <p class="about-accent">Jsem multipotenciálka.</p>
           <p>
             Moje cesta vedla přes obsahový marketing a datovou analytiku až po organizaci eventů a lektorování digi dovedností. Aktuálně se zaměřuji na AI a vibe coding. Má přirozená potřeba se neustále vzdělávat mi dává schopnost vidět širší kontext tam, kde ostatní vidí jen svůj kousek práce.
@@ -630,20 +635,14 @@
         </div>
         <div class="cards">
           <article class="card reveal reveal-delay-1">
-            <div class="card-icon" aria-hidden="true">🤖</div>
-            <h3>AI onboarding a procesní optimalizace</h3>
-            <p>
-              Najdu místa, kde vám zbytečně uniká čas, energie nebo trpělivost, a ukážu, jak je vyřešit chytře s pomocí AI.
-            </p>
-            <div class="card-detail">
-              <div class="card-detail-item">Zmapování toho, kde AI skutečně pomůže</div>
-              <div class="card-detail-item">Výběr nástrojů, které dávají smysl právě vám</div>
-              <div class="card-detail-item">Praktické zapracování do vašich stávajících workflow</div>
-              <div class="card-detail-item">Podpora, dokud to nezačne fungovat samo</div>
+            <div class="card-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
             </div>
-          </article>
-          <article class="card reveal reveal-delay-2">
-            <div class="card-icon" aria-hidden="true">🚀</div>
             <h3>Posila projektu</h3>
             <p>
               Naskočím do rozjetého vlaku, přinesu nové nápady a stanu se součástí celého týmu.
@@ -653,6 +652,24 @@
               <div class="card-detail-item">Čerstvý pohled a nové nápady tam, kde tým uvízl</div>
               <div class="card-detail-item">Podpora vedení, komunikace a rozhodování</div>
               <div class="card-detail-item">Krátkodobě i dlouhodobě, na dálku i hybridně</div>
+            </div>
+          </article>
+          <article class="card reveal reveal-delay-2">
+            <div class="card-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+                <path d="M5 3v4M3 5h4M19 17v4M17 19h4"/>
+              </svg>
+            </div>
+            <h3>AI onboarding a optimalizace procesů</h3>
+            <p>
+              Najdu místa, kde vám zbytečně uniká čas, energie nebo trpělivost, a ukážu, jak je vyřešit chytře s pomocí AI.
+            </p>
+            <div class="card-detail">
+              <div class="card-detail-item">Zmapování toho, kde AI skutečně pomůže</div>
+              <div class="card-detail-item">Výběr nástrojů, které dávají smysl právě vám</div>
+              <div class="card-detail-item">Mentorování během tvoření vlastních vylepšováků</div>
+              <div class="card-detail-item">Podpora, dokud to nezačne fungovat samo</div>
             </div>
           </article>
         </div>
