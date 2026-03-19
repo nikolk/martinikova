@@ -565,33 +565,104 @@
   </button>
 </div>
 
-<script>
-  const slides = document.querySelectorAll('.slide');
-  const total  = slides.length;
-  let current  = 0;
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-  const progress  = document.getElementById('progress');
-  const countEl   = document.getElementById('slide-count');
+  const firebaseConfig = {
+    apiKey: "AIzaSyCps1bUWXGECLBTr0VXkQLjXJx-NfaMA7M",
+    authDomain: "bootcamp-8d0ec.firebaseapp.com",
+    databaseURL: "https://bootcamp-8d0ec-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "bootcamp-8d0ec",
+    storageBucket: "bootcamp-8d0ec.firebasestorage.app",
+    messagingSenderId: "346327502231",
+    appId: "1:346327502231:web:a5ee6174491be727ab08d2"
+  };
 
-  function goTo(n) {
-    slides[current].classList.remove('active');
-    current = Math.max(0, Math.min(n, total - 1));
-    slides[current].classList.add('active');
-    countEl.textContent = `${current + 1} / ${total}`;
-    progress.style.width = `${((current + 1) / total) * 100}%`;
-    // Flip nav button colors based on slide theme
-    document.body.classList.toggle('on-ember', slides[current].dataset.theme === 'ember');
+  const app = initializeApp(firebaseConfig);
+  const db  = getDatabase(app);
+  const slideRef = ref(db, 'slide');
+
+  const isRemote = new URLSearchParams(location.search).has('remote');
+
+  // ── Remote control mód ───────────────────────────────
+  if (isRemote) {
+    document.body.innerHTML = `
+      <style>
+        body { margin:0; background:#660033; display:flex; flex-direction:column;
+               align-items:center; justify-content:center; height:100dvh;
+               font-family:'DM Sans',sans-serif; color:#fff; gap:2rem; }
+        #remote-count { font-size:1.1rem; opacity:0.6; letter-spacing:0.05em; }
+        .r-btns { display:flex; gap:1.5rem; }
+        .r-btn { width:100px; height:100px; border-radius:50%; border:2px solid rgba(255,255,255,0.3);
+                 background:rgba(255,255,255,0.1); color:#fff; font-size:2.5rem;
+                 cursor:pointer; display:flex; align-items:center; justify-content:center;
+                 transition:background 0.15s; -webkit-tap-highlight-color:transparent; }
+        .r-btn:active { background:rgba(255,255,255,0.25); }
+      </style>
+      <div id="remote-count">— / —</div>
+      <div class="r-btns">
+        <button class="r-btn" id="r-prev">←</button>
+        <button class="r-btn" id="r-next">→</button>
+      </div>
+    `;
+
+    let cur = 0; const tot = 8;
+    const countEl = document.getElementById('remote-count');
+
+    onValue(slideRef, snap => {
+      cur = snap.val() ?? 0;
+      countEl.textContent = `${cur + 1} / ${tot}`;
+    });
+
+    const send = n => set(slideRef, Math.max(0, Math.min(n, tot - 1)));
+    document.getElementById('r-next').addEventListener('click', () => send(cur + 1));
+    document.getElementById('r-prev').addEventListener('click', () => send(cur - 1));
+    document.addEventListener('keydown', e => {
+      if (['ArrowRight',' '].includes(e.key)) { e.preventDefault(); send(cur + 1); }
+      if (e.key === 'ArrowLeft')               { e.preventDefault(); send(cur - 1); }
+    });
+    // Načti fonty
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap';
+    document.head.appendChild(link);
+
+  // ── Prezentační mód ──────────────────────────────────
+  } else {
+    const slides  = document.querySelectorAll('.slide');
+    const total   = slides.length;
+    let current   = 0;
+    let listening = true;
+
+    const progress = document.getElementById('progress');
+    const countEl  = document.getElementById('slide-count');
+
+    function goTo(n, push = true) {
+      slides[current].classList.remove('active');
+      current = Math.max(0, Math.min(n, total - 1));
+      slides[current].classList.add('active');
+      countEl.textContent = `${current + 1} / ${total}`;
+      progress.style.width = `${((current + 1) / total) * 100}%`;
+      document.body.classList.toggle('on-ember', slides[current].dataset.theme === 'ember');
+      if (push) set(slideRef, current);
+    }
+
+    // Poslouchej změny z Firebase (remote)
+    onValue(slideRef, snap => {
+      const n = snap.val();
+      if (n !== null && n !== current) goTo(n, false);
+    });
+
+    document.getElementById('btn-next').addEventListener('click', () => goTo(current + 1));
+    document.getElementById('btn-prev').addEventListener('click', () => goTo(current - 1));
+    document.addEventListener('keydown', e => {
+      if (['ArrowRight', 'ArrowDown', ' '].includes(e.key)) { e.preventDefault(); goTo(current + 1); }
+      if (['ArrowLeft', 'ArrowUp'].includes(e.key))          { e.preventDefault(); goTo(current - 1); }
+    });
+
+    goTo(0);
   }
-
-  document.getElementById('btn-next').addEventListener('click', () => goTo(current + 1));
-  document.getElementById('btn-prev').addEventListener('click', () => goTo(current - 1));
-
-  document.addEventListener('keydown', e => {
-    if (['ArrowRight', 'ArrowDown', ' '].includes(e.key)) { e.preventDefault(); goTo(current + 1); }
-    if (['ArrowLeft', 'ArrowUp'].includes(e.key))          { e.preventDefault(); goTo(current - 1); }
-  });
-
-  goTo(0);
 </script>
 </body>
 </html>
