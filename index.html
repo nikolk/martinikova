@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nikol Martiníková</title>
+  <link rel="icon" href="nm.png" type="image/png" />
   <meta name="description" content="Nikol Martiníková — pomáhám týmům fungovat lépe a efektivněji." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -57,15 +58,11 @@
       box-shadow: 0 1px 0 rgba(24,21,17,0.08);
     }
 
-    .nav-logo {
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: 1.35rem;
-      letter-spacing: -0.02em;
-      color: var(--ink);
+    .nav-logo img {
+      height: 36px;
+      width: auto;
+      display: block;
     }
-
-    .nav-logo span { color: var(--ember); }
 
     .nav-links {
       display: flex;
@@ -552,7 +549,7 @@
   <!-- ── Nav ──────────────────────────────────────────── -->
   <header>
     <nav id="nav" role="navigation" aria-label="Hlavní navigace">
-      <a href="#uvod" class="nav-logo">N<span>M</span></a>
+      <a href="#uvod" class="nav-logo"><img src="nm.png" alt="Nikol Martiníková" /></a>
       <button class="nav-toggle" aria-label="Otevřít menu" aria-expanded="false" aria-controls="nav-menu">
         <span></span>
         <span></span>
